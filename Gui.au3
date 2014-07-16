@@ -236,19 +236,19 @@ ElseIf $msg = $hCancelButton then
    ExitLoop
 ElseIf $msg = $hExecutionButton Then
 
-   ;Dim $name = GUICtrlRead($hTestcase)
-  ; Dim $AutoItExe =  @ScriptDir & '\'& $name &'.exe'
-  ; Run($AutoItExe)
+   Dim $name = GUICtrlRead($hTestcase)
+  Dim $AutoItExe =  @ScriptDir & '\'& $name &'.exe'
+  Run($AutoItExe)
 
-   $aItems = _GUICtrlListBox_GetSelItemsText($list)
-	 For $iI = 1 To $aItems[0]
-	   $sItems =  $aItems[$iI]
-		Dim $AutoItExe =  @ScriptDir & '\'& $sItems &'.exe'
-		Run($AutoItExe)
-		Sleep(120000)
-		;Dim $result = RunAsWait("bharathraj.vm","BRILLIO.COM","meaning@123$",0,$AutoItExe)
-		;MsgBox("","",$result)
-     Next
+   ;$aItems = _GUICtrlListBox_GetSelItemsText($list)
+	 ;For $iI = 1 To $aItems[0]
+	   ;$sItems =  $aItems[$iI]
+		;Dim $AutoItExe =  @ScriptDir & '\'& $sItems &'.exe'
+		;Run($AutoItExe)
+		;Sleep(120000)
+		;;Dim $result = RunAsWait("bharathraj.vm","BRILLIO.COM","meaning@123$",0,$AutoItExe)
+		;;MsgBox("","",$result)
+    ; Next
 
 EndIf
 ;******************************************************************************
