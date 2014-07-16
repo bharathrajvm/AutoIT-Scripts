@@ -72,7 +72,7 @@ Dim $Password = GUICtrlCreateInput("",500,160,200,20)
 Dim $newsession = GUICtrlCreateInput("",500,200,200,20)
 Dim $ExternalJARPath = GUICtrlCreateInput("",500,240,200,20)
 Dim $CertificatePath = GUICtrlCreateInput("",500,280,200,20)
-Dim $list = _GUICtrlListBox_Create($hMainGUI,"",500,320,200,100, $LBS_EXTENDEDSEL)
+;Dim $list = _GUICtrlListBox_Create($hMainGUI,"",500,320,200,100, $LBS_EXTENDEDSEL)
 
 
 Dim $hEclipseType =  GUICtrlCreateInput("",130,3,200,20)
@@ -104,10 +104,10 @@ Local $temp = $a[$loopVariable][3]
 GUICtrlSetData($hTestcase, $temp)
 Next
 
-For $loopVariable = 2 to $arrayRowCount-1 step 1
-Local $temp = $a[$loopVariable][3]
-_GUICtrlListBox_AddString($list, $temp)
-Next
+;For $loopVariable = 2 to $arrayRowCount-1 step 1
+;Local $temp = $a[$loopVariable][3]
+;_GUICtrlListBox_AddString($list, $temp)
+;Next
 
 
 
