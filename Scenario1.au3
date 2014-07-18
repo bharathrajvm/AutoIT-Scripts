@@ -26,6 +26,7 @@
 #include <WindowsConstants.au3>
 #include <MsgBoxConstants.au3>
 #include <GuiTreeView.au3>
+#include <File.au3>
 
 
 ;******************************************
@@ -41,7 +42,7 @@ AutoItSetOption ( "SendKeyDelay", 400)
 ;To do - move helper function
 ;******************************************************************
 ;Open xls
-Local $sFilePath1 = "D:\Autoit\AutoIT-Scripts-master\TestData.xlsx" ;This file should already exist in the mentioned path
+Local $sFilePath1 = @ScriptDir & "\" & "TestData.xlsx"  ;This file should already exist in the mentioned path
 Local $oExcel = _ExcelBookOpen($sFilePath1,0,True)
 
 ;Check for error
@@ -58,38 +59,38 @@ EndIf
 ;*******************************************************************************
 ; Reading xls data into variables
 ;to do - looping to get the data from desired row of xls
-Local $testCaseIteration = _ExcelReadCell($oExcel, 6, 1)
-Local $testCaseExecute = _ExcelReadCell($oExcel, 6, 2)
-Local $testCaseName = _ExcelReadCell($oExcel, 6, 3)
-Local $testCaseDescription = _ExcelReadCell($oExcel, 6, 4)
-Local $JunoOrKep  = _ExcelReadCell($oExcel, 6, 5)
-if $JunoOrKep = "Juno" Then
-   Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 6)
-Else
-   Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 7)
-   EndIf
-;Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 6)
-Local $testCaseWorkSpacePath = _ExcelReadCell($oExcel, 6, 8)
-Local $testCaseProjectName = _ExcelReadCell($oExcel, 6, 9)
-Local $testCaseJspName = _ExcelReadCell($oExcel, 6, 10)
-Local $testCaseJspText = _ExcelReadCell($oExcel, 6, 11)
-Local $testCaseAzureProjectName = _ExcelReadCell($oExcel, 6, 12)
-Local $testCaseCheckJdk = _ExcelReadCell($oExcel, 6, 13)
-Local $testCaseJdkPath = _ExcelReadCell($oExcel, 6, 14)
-Local $testCaseCheckLocalServer = _ExcelReadCell($oExcel, 6, 15)
-Local $testCaseServerPath = _ExcelReadCell($oExcel, 6, 16)
-Local $testCaseServerNo = _ExcelReadCell($oExcel, 6, 17)
-Local $testCaseUrl = _ExcelReadCell($oExcel, 6, 18)
-Local $testCaseValidationText = _ExcelReadCell($oExcel, 6, 19)
-Local $testCaseSubscription = _ExcelReadCell($oExcel, 6, 20)
-Local $testCaseStorageAccount = _ExcelReadCell($oExcel, 6, 21)
-Local $testCaseServiceName = _ExcelReadCell($oExcel, 6, 22)
-Local $testCaseTargetOS = _ExcelReadCell($oExcel, 6, 23)
-Local $testCaseTargetEnvironment = _ExcelReadCell($oExcel, 6, 24)
-Local $testCaseCheckOverwrite = _ExcelReadCell($oExcel, 6, 25)
-Local $testCaseJDKOnCloud = _ExcelReadCell($oExcel, 6, 28)
-Local $testCaseUserName = _ExcelReadCell($oExcel, 6, 29)
-Local $testCasePassword = _ExcelReadCell($oExcel, 6, 30)
+Local $testCaseIteration = _ExcelReadCell($oExcel, 4, 1)
+Local $testCaseExecute = _ExcelReadCell($oExcel, 4, 2)
+Local $testCaseName = _ExcelReadCell($oExcel, 4, 3)
+Local $testCaseDescription = _ExcelReadCell($oExcel, 4, 4)
+Local $JunoOrKep  = _ExcelReadCell($oExcel, 4, 5)
+;if $JunoOrKep = "Juno" Then
+   ;Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 4, 6)
+;Else
+   ;Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 4, 7)
+;EndIf
+Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 4, 6)
+Local $testCaseWorkSpacePath = _ExcelReadCell($oExcel, 4, 8)
+Local $testCaseProjectName = _ExcelReadCell($oExcel, 4, 9)
+Local $testCaseJspName = _ExcelReadCell($oExcel, 4, 10)
+Local $testCaseJspText = _ExcelReadCell($oExcel, 4, 11)
+Local $testCaseAzureProjectName = _ExcelReadCell($oExcel, 4, 12)
+Local $testCaseCheckJdk = _ExcelReadCell($oExcel, 4, 13)
+Local $testCaseJdkPath = _ExcelReadCell($oExcel, 4, 14)
+Local $testCaseCheckLocalServer = _ExcelReadCell($oExcel, 4, 15)
+Local $testCaseServerPath = _ExcelReadCell($oExcel, 4, 16)
+Local $testCaseServerNo = _ExcelReadCell($oExcel, 4, 17)
+Local $testCaseUrl = _ExcelReadCell($oExcel, 4, 18)
+Local $testCaseValidationText = _ExcelReadCell($oExcel, 4, 19)
+Local $testCaseSubscription = _ExcelReadCell($oExcel, 4, 20)
+Local $testCaseStorageAccount = _ExcelReadCell($oExcel, 4, 21)
+Local $testCaseServiceName = _ExcelReadCell($oExcel, 4, 22)
+Local $testCaseTargetOS = _ExcelReadCell($oExcel, 4, 23)
+Local $testCaseTargetEnvironment = _ExcelReadCell($oExcel, 4, 24)
+Local $testCaseCheckOverwrite = _ExcelReadCell($oExcel, 4, 25)
+Local $testCaseJDKOnCloud = _ExcelReadCell($oExcel, 4, 28)
+Local $testCaseUserName = _ExcelReadCell($oExcel, 4, 29)
+Local $testCasePassword = _ExcelReadCell($oExcel, 4, 30)
 _ExcelBookClose($oExcel,0)
 ;************************************************************************************
 
@@ -119,16 +120,15 @@ PublishToCloud()
 ;Wait for 10 min RDP screen
 Sleep(60000)
 
+
 ;Check RDP and Open excel
 CheckRDPConnection()
-
-
 
 ;Check for published key word in Azure activity log and update excel
 ValidateTextAndUpdateExcel()
 
 ;To Delete the Existing Project
-Delete()
+;Delete()
 ;to do - Post validation steps
 
 ;***************************************************************
@@ -138,6 +138,20 @@ Delete()
 ;***************************************************************
 ;Function to Open instance of Eclipse
 ;***************************************************************
+
+
+Func wincheck($fun ,$ctrl)
+ 	  Local $act = WinActive($ctrl)
+	  if $act = 0 Then
+		 Local $lFile = FileOpen(@ScriptDir & "\" & "Error.log", 1)
+ 		 Local $wrt = _FileWriteLog("D:\Autoit\AutoIT-Scripts-master\Error.log", "Error Opening:" & $ctrl, 1)
+		 MsgBox("","",$wrt)
+		 FileClose($lFile)
+		 MsgBox($MB_OK,"Error","Error status is recorded in Error.log")
+	  EndIf
+ EndFunc
+
+
 
 
 
@@ -163,6 +177,12 @@ EndFunc
 Func CreateJavaProject()
 Send("!fnd")
 WinWaitActive("[Title:New Dynamic Web Project]")
+; Calling the Winchek Function to validate the proper screen
+Local $funame, $cntrlname
+$cntrlname = "[Title:New Dynamic Web Project]"
+$funame = "CreateJavaProject"
+wincheck($funame,$cntrlname)
+
 AutoItSetOption ( "SendKeyDelay", 50)
 Send($testCaseProjectName)
 AutoItSetOption ( "SendKeyDelay", 400)
@@ -191,6 +211,11 @@ Send("!f")
 Local $temp = "Java EE - " & $testCaseProjectName & "/WebContent/" & $testCaseJspName & " - Eclipse"
 Sleep(3000)
 WinWaitActive($temp)
+; Calling the Winchek Function
+Local $funame, $cntrlname
+$cntrlname =  "Java EE - " & $testCaseProjectName & "/WebContent/" & $testCaseJspName & " - Eclipse"
+$funame = "CreateJSPFile"
+wincheck($funame,$cntrlname)
 AutoItSetOption ( "SendKeyDelay", 100)
 Send("{down 9}")
 ;Send($testCaseJspText)
@@ -208,16 +233,21 @@ EndFunc
 Func CreateAzurePackage()
 WinWaitActive("Java EE - MyHelloWorld/WebContent/index.jsp - Eclipse")
 Sleep(3000)
-MouseClick("primary",105, 395, 1)
+MouseClick("primary",75, 138, 1)
 Send("{APPSKEY}")
 Sleep(1000)
-Send("e")
+Send("g")
 Send("{Left}")
 Send("{UP}")
 ;Send("{down 24}")
 Send("{right}")
 Send("{Enter}")
 WinWaitActive("[Title:New Azure Deployment Project]")
+; Calling the Winchek Function
+Local $funame, $cntrlname
+$cntrlname =  "[Title:New Azure Deployment Project]"
+$funame = "CreateAzurePackage"
+wincheck($funame,$cntrlname)
 AutoItSetOption ( "SendKeyDelay", 50)
 Send($testCaseAzureProjectName)
 AutoItSetOption ( "SendKeyDelay", 400)
@@ -274,7 +304,7 @@ WinWaitActive("Java EE - MyHelloWorld/WebContent/index.jsp - Eclipse")
 Send("{Up}")
 Send("{APPSKEY}")
 Sleep(1000)
-Send("e")
+Send("g")
 Send("{Left}")
 Send("{UP}")
 ;Send("{Down 21}")
@@ -357,7 +387,7 @@ If @error = 1 Then
     Exit
 ElseIf @error = 2 Then
     MsgBox($MB_SYSTEMMODAL, "Error!", "parameter is not a number")
-    Exit
+    Exitnd
 EndIf
 
 _ExcelWriteCell($oExcel, "Date And Time", 1, 1)
@@ -386,21 +416,24 @@ EndFunc
 Func Delete()
 Dim $hWnd = WinGetHandle("[CLASS:SWT_Window0]")
 Local $hToolBar = ControlGetHandle($hWnd, "", "[CLASS:SysTreeView32; INSTANCE:1]")
-Local $cnt = _GUICtrlTreeView_GetCount($hToolBar)
+MouseClick("primary",145, 381, 1)
+MouseClick("primary",194, 114, 1)
 WinActivate($hToolBar)
-_GUICtrlTreeView_Expand($hToolBar,0,False)
+;_GUICtrlTreeView_Expand($hToolBar)
+;_GUICtrlTreeView_Expand($hToolBar,0,False)
 for $i = 6 to 1 Step - 1
    Local $chk = _GUICtrlTreeView_GetCount($hToolBar)
+   MouseClick("primary",194, 114, 1)
 if $chk = 0 Then
 	ExitLoop
  Else
-	Send("{RIGHT}")
+   Send("{RIGHT}")
    Send("{DOWN}")
    Send("{UP}")
    Send("{DELETE}")
    Send("{SPACE}")
    Send("{ENTER}")
-   ProcessClose("eclipse.exe")
+   ;ProcessClose("eclipse.exe")
    EndIf
 Next
 EndFunc

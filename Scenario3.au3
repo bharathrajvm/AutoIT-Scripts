@@ -19,7 +19,14 @@
 #include <IE.au3>
 #include <Clipboard.au3>
 #include <Date.au3>
+#include <GuiListView.au3>
+#include <GUIConstantsEx.au3>
 #include <GuiTreeView.au3>
+#include <GuiImageList.au3>
+#include <WindowsConstants.au3>
+#include <MsgBoxConstants.au3>
+#include <GuiTreeView.au3>
+#include <File.au3>
 ;******************************************
 
 ;***************************************************************
@@ -33,7 +40,7 @@ AutoItSetOption ( "SendKeyDelay", 400)
 ;To do - move helper function
 ;******************************************************************
 ;Open xls
-Local $sFilePath1 = "D:\Autoit\AutoIT-Scripts-master\TestData.xlsx" ;This file should already exist in the mentioned path
+Local $sFilePath1 = @ScriptDir & "\" & "TestData.xlsx"  ;This file should already exist in the mentioned path
 Local $oExcel = _ExcelBookOpen($sFilePath1,0,True)
 
 ;Check for error
@@ -54,13 +61,12 @@ Local $testCaseExecute = _ExcelReadCell($oExcel, 6, 2)
 Local $testCaseName = _ExcelReadCell($oExcel, 6, 3)
 Local $testCaseDescription = _ExcelReadCell($oExcel, 6, 4)
 Local $JunoOrKep  = _ExcelReadCell($oExcel, 6, 5)
-
-if $JunoOrKep = "Juno" Then
-   Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 6)
-Else
-   Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 7)
-   EndIf
-;Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 6)
+Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 6)
+;if $JunoOrKep = "Juno" Then
+  ; Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 6)
+;Else
+   ;Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 7)
+   ;EndIf
 Local $testCaseWorkSpacePath = _ExcelReadCell($oExcel, 6, 8)
 Local $testCaseProjectName = _ExcelReadCell($oExcel, 6, 9)
 Local $testCaseJspName = _ExcelReadCell($oExcel, 6, 10)
@@ -118,10 +124,22 @@ ValidateTextAndUpdateExcel()
 ;to do - Post validation steps
 
 ;Delete the Project after it is Published
-Delete()
+;Delete()
 ;***************************************************************
 ;Helper Functions
 ;***************************************************************
+
+
+Func wincheck($fun ,$ctrl)
+ 	  Local $act = WinActive($ctrl)
+	  if $act = 0 Then
+		 Local $lFile = FileOpen(@ScriptDir & "\" & "Error.log", 1)
+ 		 Local $wrt = _FileWriteLog("D:\Autoit\AutoIT-Scripts-master\Error.log", "Error Opening:" & $ctrl, 1)
+		 MsgBox("","",$wrt)
+		 FileClose($lFile)
+		 MsgBox($MB_OK,"Error","Error status is recorded in Error.log")
+	  EndIf
+ EndFunc
 
 ;***************************************************************
 ;Function to Open instance of Eclipse
@@ -145,6 +163,12 @@ EndFunc
 Func CreateJavaProject()
 Send("!fnd")
 WinWaitActive("[Title:New Dynamic Web Project]")
+; Calling the Winchek Function to validate the proper screen
+Local $funame, $cntrlname
+$cntrlname = "[Title:New Dynamic Web Project]"
+$funame = "CreateJavaProject"
+wincheck($funame,$cntrlname)
+
 AutoItSetOption ( "SendKeyDelay", 50)
 Send($testCaseProjectName)
 AutoItSetOption ( "SendKeyDelay", 400)
@@ -213,6 +237,12 @@ Send("{UP}")
 Send("{right}")
 Send("{Enter}")
 WinWaitActive("[Title:New Azure Deployment Project]")
+; Calling the Winchek Function
+Local $funame, $cntrlname
+$cntrlname =  "[Title:New Azure Deployment Project]"
+$funame = "CreateAzurePackage"
+wincheck($funame,$cntrlname)
+
 AutoItSetOption ( "SendKeyDelay", 50)
 Send($testCaseAzureProjectName)
 AutoItSetOption ( "SendKeyDelay", 400)
@@ -445,7 +475,7 @@ if $chk = 0 Then
    Send("{DELETE}")
    Send("{SPACE}")
    Send("{ENTER}")
-   ProcessClose("eclipse.exe")
+   ;ProcessClose("eclipse.exe")
    EndIf
 Next
 EndFunc
