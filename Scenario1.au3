@@ -125,6 +125,7 @@ Sleep(60000)
 CheckRDPConnection()
 
 ;Check for published key word in Azure activity log and update excel
+
 ValidateTextAndUpdateExcel()
 
 ;To Delete the Existing Project
@@ -144,7 +145,7 @@ Func wincheck($fun ,$ctrl)
  	  Local $act = WinActive($ctrl)
 	  if $act = 0 Then
 		 Local $lFile = FileOpen(@ScriptDir & "\" & "Error.log", 1)
- 		 Local $wrt = _FileWriteLog("D:\Autoit\AutoIT-Scripts-master\Error.log", "Error Opening:" & $ctrl, 1)
+ 		 Local $wrt = _FileWriteLog(@ScriptDir & "\" & "Error.log", "Error Opening:" & $ctrl, 1)
 		 MsgBox("","",$wrt)
 		 FileClose($lFile)
 		 MsgBox($MB_OK,"Error","Error status is recorded in Error.log")
@@ -416,17 +417,18 @@ EndFunc
 Func Delete()
 Dim $hWnd = WinGetHandle("[CLASS:SWT_Window0]")
 Local $hToolBar = ControlGetHandle($hWnd, "", "[CLASS:SysTreeView32; INSTANCE:1]")
-MouseClick("primary",145, 381, 1)
+;MouseClick("primary",145, 381, 1)
 MouseClick("primary",194, 114, 1)
 WinActivate($hToolBar)
 ;_GUICtrlTreeView_Expand($hToolBar)
 ;_GUICtrlTreeView_Expand($hToolBar,0,False)
 for $i = 6 to 1 Step - 1
    Local $chk = _GUICtrlTreeView_GetCount($hToolBar)
-   MouseClick("primary",194, 114, 1)
+
 if $chk = 0 Then
 	ExitLoop
  Else
+   MouseClick("primary",194, 114, 1)
    Send("{RIGHT}")
    Send("{DOWN}")
    Send("{UP}")

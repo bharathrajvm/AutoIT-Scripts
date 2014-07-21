@@ -103,7 +103,8 @@ OpenEclipse()
 ;Deleting the existing project
 Delete()
 
-;Creating Java Project
+
+ ;Creating Java Project
 CreateJavaProject()
 
 ;Creating JSP file and insert code
@@ -116,6 +117,7 @@ CreateAzurePackage()
 PublishToCloud()
 
 ;Wait for 10 min RDP screen
+;
 Sleep(540000)
 
 ;Check RDP and Open excel
@@ -146,7 +148,7 @@ Func wincheck($fun ,$ctrl)
  	  Local $act = WinActive($ctrl)
 	  if $act = 0 Then
 		 Local $lFile = FileOpen(@ScriptDir & "\" & "Error.log", 1)
- 		 Local $wrt = _FileWriteLog("D:\Autoit\AutoIT-Scripts-master\Error.log", "Error Opening:" & $ctrl, 1)
+ 		 Local $wrt = _FileWriteLog(@ScriptDir & "\" & "Error.log", "Error Opening:" & $ctrl, 1)
 		 MsgBox("","",$wrt)
 		 FileClose($lFile)
 		 MsgBox($MB_OK,"Error","Error status is recorded in Error.log")
@@ -168,11 +170,13 @@ Send("{Enter}")
 WinWaitActive("[Title:Web - Eclipse]")
 
 EndFunc
+
 ;***************************************************************
 
 ;***************************************************************
 ;Function to create Java Project
 ;***************************************************************
+
 Func CreateJavaProject()
 
 Send("!fnd")
@@ -201,7 +205,7 @@ Send("{APPSKEY}")
 AutoItSetOption ( "SendKeyDelay", 100)
 Send("{down}")
 Send("{RIGHT}")
-Send("{down 13}")
+Send("{down 14}")
 Send("{enter}")
 
 Send($testCaseJspName)
@@ -232,7 +236,7 @@ EndFunc
 Func CreateAzurePackage()
 WinWaitActive("Web - MyHelloWorld/WebContent/index.jsp - Eclipse")
 Sleep(3000)
-MouseClick("primary",105, 395, 1)
+MouseClick("primary",192, 92, 1)
 Send("{APPSKEY}")
 Sleep(1000)
 Send("e")
@@ -500,18 +504,17 @@ EndFunc
 Func Delete()
 Dim $hWnd = WinGetHandle("[CLASS:SWT_Window0]")
 Local $hToolBar = ControlGetHandle($hWnd, "", "[CLASS:SysTreeView32; INSTANCE:1]")
-;MouseClick("primary",145, 381, 1)
-;MouseClick("primary",194, 114, 1)
+MouseClick("primary",225, 91, 1)
 WinActivate($hToolBar)
 ;_GUICtrlTreeView_Expand($hToolBar)
 ;_GUICtrlTreeView_Expand($hToolBar,0,False)
 for $i = 6 to 1 Step - 1
    Local $chk = _GUICtrlTreeView_GetCount($hToolBar)
-   MouseClick("primary",145, 381, 1)
-   MouseClick("primary",194, 114, 1)
+   MouseClick("primary",192, 92, 1)
 if $chk = 0 Then
 	ExitLoop
  Else
+   MouseClick("primary",192, 92, 1)
    Send("{RIGHT}")
    Send("{DOWN}")
    Send("{UP}")

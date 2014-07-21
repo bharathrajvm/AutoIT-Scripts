@@ -1,10 +1,10 @@
 ;*******************************************************************
 ;Description: Publish-Overwrite previous deployment-Off
 ;
-;Purpose: Creates a Java Project and publish in cloud with Staging target
+;Purpose: Creates a Java Project and publish in cloud with Production target
 ;Environment and Overwrite previous deployment Off
 ;
-;Date: 3 June 2014 , Modified on 12 June 2014
+;Date: 4 Jun 2014 , Modified on 12 June 2014
 ;Author: Ganesh
 ;Company: Brillio
 ;*********************************************************************
@@ -40,7 +40,7 @@ AutoItSetOption ( "SendKeyDelay", 400)
 ;To do - move helper function
 ;******************************************************************
 ;Open xls
-Local $sFilePath1 = @ScriptDir & "\" & "TestData.xlsx"  ;This file should already exist in the mentioned path
+Local $sFilePath1 = @ScriptDir & "\" & "TestData.xlsx";This file should already exist in the mentioned path
 Local $oExcel = _ExcelBookOpen($sFilePath1,0,True)
 
 ;Check for error
@@ -50,58 +50,55 @@ If @error = 1 Then
 ElseIf @error = 2 Then
     MsgBox($MB_SYSTEMMODAL, "Error!", "File does not exist")
     Exit
-EndIf
+ EndIf
 
-
-
-; Reading xls data into variables
+ ; Reading xls data into variables
 ;to do - looping to get the data from desired row of xls
-Local $testCaseIteration = _ExcelReadCell($oExcel, 6, 1)
-Local $testCaseExecute = _ExcelReadCell($oExcel, 6, 2)
-Local $testCaseName = _ExcelReadCell($oExcel, 6, 3)
-Local $testCaseDescription = _ExcelReadCell($oExcel, 6, 4)
-Local $JunoOrKep  = _ExcelReadCell($oExcel, 6, 5)
-Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 6)
+Local $testCaseIteration = _ExcelReadCell($oExcel, 8, 1)
+Local $testCaseExecute = _ExcelReadCell($oExcel, 8, 2)
+Local $testCaseName = _ExcelReadCell($oExcel, 8, 3)
+Local $testCaseDescription = _ExcelReadCell($oExcel, 8, 4)
+Local $JunoOrKep  = _ExcelReadCell($oExcel, 8, 5)
+Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 8, 6)
 ;if $JunoOrKep = "Juno" Then
-  ; Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 6)
+  ; Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 8, 6)
 ;Else
-   ;Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 6, 7)
+   ;Local $testCaseEclipseExePath = _ExcelReadCell($oExcel, 8, 7)
    ;EndIf
-Local $testCaseWorkSpacePath = _ExcelReadCell($oExcel, 6, 8)
-Local $testCaseProjectName = _ExcelReadCell($oExcel, 6, 9)
-Local $testCaseJspName = _ExcelReadCell($oExcel, 6, 10)
-Local $testCaseJspText = _ExcelReadCell($oExcel, 6, 11)
-Local $testCaseAzureProjectName = _ExcelReadCell($oExcel, 6, 12)
-Local $testCaseCheckJdk = _ExcelReadCell($oExcel, 6, 13)
-Local $testCaseJdkPath = _ExcelReadCell($oExcel, 6, 14)
-Local $testCaseCheckLocalServer = _ExcelReadCell($oExcel, 6, 15)
-Local $testCaseServerPath = _ExcelReadCell($oExcel, 6, 16)
-Local $testCaseServerNo = _ExcelReadCell($oExcel, 6, 17)
-Local $testCaseUrl = _ExcelReadCell($oExcel, 6, 18)
-Local $testCaseValidationText = _ExcelReadCell($oExcel, 6, 19)
-Local $testCaseSubscription = _ExcelReadCell($oExcel, 6, 20)
-Local $testCaseStorageAccount = _ExcelReadCell($oExcel, 6, 21)
-Local $testCaseServiceName = _ExcelReadCell($oExcel, 6, 22)
-Local $testCaseTargetOS = _ExcelReadCell($oExcel, 6, 23)
-Local $testCaseTargetEnvironment = _ExcelReadCell($oExcel, 6, 24)
-Local $testCaseCheckOverwrite = _ExcelReadCell($oExcel, 6, 25)
-Local $testCaseJDKOnCloud = _ExcelReadCell($oExcel, 6, 28)
-Local $testCaseUserName = _ExcelReadCell($oExcel, 6, 29)
-Local $testCasePassword = _ExcelReadCell($oExcel, 6, 30)
+Local $testCaseWorkSpacePath = _ExcelReadCell($oExcel, 8, 8)
+Local $testCaseProjectName = _ExcelReadCell($oExcel, 8, 9)
+Local $testCaseJspName = _ExcelReadCell($oExcel, 8, 10)
+Local $testCaseJspText = _ExcelReadCell($oExcel, 8, 11)
+Local $testCaseAzureProjectName = _ExcelReadCell($oExcel, 8, 12)
+Local $testCaseCheckJdk = _ExcelReadCell($oExcel, 8, 13)
+Local $testCaseJdkPath = _ExcelReadCell($oExcel, 8, 14)
+Local $testCaseCheckLocalServer = _ExcelReadCell($oExcel, 8, 15)
+Local $testCaseServerPath = _ExcelReadCell($oExcel, 8, 16)
+Local $testCaseServerNo = _ExcelReadCell($oExcel, 8, 17)
+Local $testCaseUrl = _ExcelReadCell($oExcel, 8, 18)
+Local $testCaseValidationText = _ExcelReadCell($oExcel, 8, 19)
+Local $testCaseSubscription = _ExcelReadCell($oExcel, 8, 20)
+Local $testCaseStorageAccount = _ExcelReadCell($oExcel, 8, 21)
+Local $testCaseServiceName = _ExcelReadCell($oExcel, 8, 22)
+Local $testCaseTargetOS = _ExcelReadCell($oExcel, 8, 23)
+Local $testCaseTargetEnvironment = _ExcelReadCell($oExcel, 8, 24)
+Local $testCaseCheckOverwrite = _ExcelReadCell($oExcel, 8, 25)
+Local $testCaseJDKOnCloud = _ExcelReadCell($oExcel, 8, 28)
+Local $testCaseUserName = _ExcelReadCell($oExcel, 8, 29)
+Local $testCasePassword = _ExcelReadCell($oExcel, 8, 30)
 _ExcelBookClose($oExcel,0)
 ;*******************************************************************************
-
-
 
 ;to do - Pre validation steps
 
 ;Opening instance of Eclipse
 OpenEclipse()
 
-
 Delete()
 
-;Creating Java Project
+
+
+  ;Creating Java Project
 CreateJavaProject()
 
 ;Creating JSP file and insert code
@@ -109,6 +106,7 @@ CreateJSPFile()
 
 ;CreateAzurePackage
 CreateAzurePackage()
+
 
 ;Publish to Cloud
 PublishToCloud()
@@ -121,10 +119,9 @@ CheckRDPConnection()
 
 ;Check for published key word in Azure activity log and update excel
 ValidateTextAndUpdateExcel()
+
 ;to do - Post validation steps
 
-;Delete the Project after it is Published
-;Delete()
 ;***************************************************************
 ;Helper Functions
 ;***************************************************************
@@ -141,11 +138,11 @@ Func wincheck($fun ,$ctrl)
 	  EndIf
  EndFunc
 
+
 ;***************************************************************
 ;Function to Open instance of Eclipse
 ;***************************************************************
 Func OpenEclipse()
-
 Run($testCaseEclipseExePath)
 WinWaitActive("Workspace Launcher")
 AutoItSetOption ( "SendKeyDelay", 50)
@@ -163,7 +160,7 @@ EndFunc
 Func CreateJavaProject()
 Send("!fnd")
 WinWaitActive("[Title:New Dynamic Web Project]")
-; Calling the Winchek Function to validate the proper screen
+
 Local $funame, $cntrlname
 $cntrlname = "[Title:New Dynamic Web Project]"
 $funame = "CreateJavaProject"
@@ -197,6 +194,13 @@ Send("!f")
 Local $temp = "Java EE - " & $testCaseProjectName & "/WebContent/" & $testCaseJspName & " - Eclipse"
 Sleep(3000)
 WinWaitActive($temp)
+
+; Calling the Winchek Function
+Local $funame, $cntrlname
+$cntrlname =  "Java EE - " & $testCaseProjectName & "/WebContent/" & $testCaseJspName & " - Eclipse"
+$funame = "CreateJSPFile"
+wincheck($funame,$cntrlname)
+
 AutoItSetOption ( "SendKeyDelay", 100)
 Send("{down 9}")
 ;Send($testCaseJspText)
@@ -214,34 +218,22 @@ Func CreateAzurePackage()
 WinWaitActive("Java EE - MyHelloWorld/WebContent/index.jsp - Eclipse")
 Sleep(3000)
 MouseClick("primary",105, 395, 1)
-
-Dim $hWnd = WinGetHandle("[CLASS:SWT_Window0]")
-Local $hToolBar = ControlGetHandle($hWnd, "", "[CLASS:SysTreeView32; INSTANCE:1]")
-Local $cnt = _GUICtrlTreeView_GetCount($hToolBar)
-WinActivate($hToolBar)
-;ControlClick($hWnd,"","left",1)
-_GUICtrlTreeView_Expand($hToolBar,0,False)
-Send("{RIGHT}")
-Send("{LEFT}")
-Send("{RIGHT}")
-Send("{DOWN}")
-Send("{UP}")
-Send("{ENTER}")
-
 Send("{APPSKEY}")
 Sleep(1000)
-Send("g")
+Send("e")
 Send("{Left}")
 Send("{UP}")
 ;Send("{down 24}")
 Send("{right}")
 Send("{Enter}")
 WinWaitActive("[Title:New Azure Deployment Project]")
+
 ; Calling the Winchek Function
 Local $funame, $cntrlname
 $cntrlname =  "[Title:New Azure Deployment Project]"
 $funame = "CreateAzurePackage"
 wincheck($funame,$cntrlname)
+
 
 AutoItSetOption ( "SendKeyDelay", 50)
 Send($testCaseAzureProjectName)
@@ -257,7 +249,6 @@ Local $cmp = StringCompare($testCaseCheckJdk,"Check")
 	   sleep(2000)
 	  ControlCommand("New Azure Deployment Project","","[CLASSNN:Button5]","Check", "")
    EndIf
-
 Send("{TAB}")
 Send("+")
 Send("{End}")
@@ -268,7 +259,6 @@ Send("!N")
 ;Server Configuration
 sleep(3000)
 Local $cmp = StringCompare($testCaseCheckLocalServer,"Check")
-MsgBox("","",$cmp)
    if $cmp = 0 Then
 	   ControlCommand("New Azure Deployment Project","","[CLASSNN:Button10]","UnCheck", "")
 	   sleep(2000)
@@ -300,12 +290,7 @@ WinWaitActive("Java EE - MyHelloWorld/WebContent/index.jsp - Eclipse")
 Send("{Up}")
 Send("{APPSKEY}")
 Sleep(1000)
-if $JunoOrKep = "Juno" Then
-  Send("g")
-Else
-  Send("e")
-   EndIf
-;Send("e")
+Send("e")
 Send("{Left}")
 Send("{UP}")
 ;Send("{Down 21}")
@@ -426,7 +411,6 @@ Sleep(5000)
 Send("{F6}")
 Send("^c")
 Local $url = ClipGet();
-MsgBox($MB_SYSTEMMODAL, "URL"," " & $url & " ", $url)
 Local $temp = $url & $testCaseProjectName
 Local $oIE = _IECreate($temp,1,0,1,0)
 _IELoadWait($oIE)
@@ -456,8 +440,6 @@ _ExcelBookClose($oExcel, 1, 0)
 EndFunc
 ;*******************************************************************************
 
-;***************************************************************************
-;Function to Delete the Project
 Func Delete()
 Dim $hWnd = WinGetHandle("[CLASS:SWT_Window0]")
 Local $hToolBar = ControlGetHandle($hWnd, "", "[CLASS:SysTreeView32; INSTANCE:1]")
@@ -483,5 +465,5 @@ if $chk = 0 Then
    EndIf
 Next
 EndFunc
-
+;*********************************************************************************
 
